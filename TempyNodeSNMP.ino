@@ -9,12 +9,11 @@ WiFiUDP udp;
 SNMPTrap* testTrap = new SNMPTrap("public", SNMP_VERSION_2C);
 
 TimestampCallback* timestampCallback;
-int tensOfMillisCounter = 0;
 
   int testint = 10;
   int test = 10;
 
-  char tempchar[10];  
+  char output_temp[10];  
   char* outputchar = "0.00";
 
 
@@ -90,7 +89,7 @@ void setup()
   Serial.begin(115200);
   WiFi.onEvent(WiFiEvent);
   ETH.begin();
-  ETH.setHostname("TempyNode_v1.1");
+  ETH.setHostname("TempyNode_v1.1"); // hostname pre tempynode
   Serial.println(ETH.localIP());
   setupSNMP();
 
@@ -101,17 +100,14 @@ void setup()
 void loop()
 {
   snmp.loop(); 
-
-  tensOfMillisCounter = millis()/10;
-  
   getTemp();
-  delay(10);
+  delay(2);
 }
 
 float getTemp(){ 
   sensors.requestTemperatures();
   float temp = sensors.getTempCByIndex(0);
   dtostrf(temp, 5, 2, tempchar);
-  outputchar = tempchar;
+  outputchar = output_temp;
   return 0;
   }
