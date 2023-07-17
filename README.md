@@ -1,6 +1,6 @@
 
 <h1 align="center">
-  Tempy
+  Tempy [Work in progress]
   <br>
 </h1>
 
