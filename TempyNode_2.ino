@@ -6,15 +6,14 @@
 #include <DallasTemperature.h>
 #include <SNMP_Agent.h>
 
-
 char output_temp[10];  
 char* outputchar = "0.00";
 
 SNMPAgent snmp;
 WiFiUDP udp;
+//SNMPTrap* testTrap = new SNMPTrap("public", SNMP_VERSION_2C);
 
-
-#define ONE_WIRE_BUS 4
+#define ONE_WIRE_BUS 4 // definuje pin na ktorom je pripojeny teplotny senzor
 OneWire oneWire(ONE_WIRE_BUS); 
 DallasTemperature sensors(&oneWire);
 
@@ -187,6 +186,9 @@ void setupSNMP()
   snmp.setUDP(&udp);
   snmp.begin();
   
+  
+  //snmp.addIntegerHandler(".1.3.6.1.4.1.12345.0", &testint);
+  //snmp.addIntegerHandler(".1.3.6.1.2.1.1.1.0", &test, false);
   snmp.addReadWriteStringHandler(".1.3.6.1.4.1.12345.1", &outputchar, false);
 }
 
